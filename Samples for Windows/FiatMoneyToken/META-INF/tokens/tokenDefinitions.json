@@ -1,0 +1,39 @@
+{
+  "ometadata~fiatmoneytok~*": [
+    {
+      "jsonPath": [
+        "Total_supply"
+      ],
+      "precision": 2
+    },
+    {
+      "jsonPath": [
+        "Total_minted_amount"
+      ],
+      "max": 1000,
+      "precision": 2
+    }
+  ],
+  "oaccount~*": [
+    {
+      "jsonPath": [
+        "Balance"
+      ],
+      "precision": 2
+    },
+    {
+      "jsonPath": [
+        "BalanceOnHold"
+      ],
+      "precision": 2
+    }
+  ],
+  "ohold~fiatmoneytok~*": [
+    {
+      "jsonPath": [
+        "quantity"
+      ],
+      "precision": 2
+    }
+  ]
+}

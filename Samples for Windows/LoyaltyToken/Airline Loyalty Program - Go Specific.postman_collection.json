@@ -1,0 +1,896 @@
+{
+	"info": {
+		"_postman_id": "792b8287-eb6f-4a85-84de-d5a208acae13",
+		"name": "Airline Loyalty Program - Go Specific",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Step-1: Initialize Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_admin_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_admin_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"InitializeLoyalTOKToken\",\n        \"{\\\"Token_id\\\":\\\"{{bc_token_id}}\\\",\\\"Token_desc\\\":\\\"Loyalty Token\\\",\\\"Currency_Name\\\":\\\"USD\\\",\\\"Token_To_Currency_Ratio\\\":10,\\\"Effective_From_Date\\\":\\\"2021-01-01\\\"}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/transactions",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-2: Initialize Airline Manager Account",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_admin_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_admin_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"InitializeMerchant\",\n        \"M001\",\n        \"Utopian Airline\",\n        \"issuer\",\n          \"{{bc_airline_company_orgid}}\",\n        \"{{bc_airline_manager_userid}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/transactions",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-3: Associate Airline Manager Account to Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_admin_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_admin_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"AssociateTokenToMerchantAccount\",\n        \"M001\",\n        \"{{bc_token_id}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/transactions",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-4: Initialize Car Rental Manager Account",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_admin_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_admin_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"InitializeMerchant\",\n        \"P001\",\n        \"Car Rental\",\n        \"redeemer\",\n          \"{{bc_car_rental_company_orgid}}\",\n        \"{{bc_car_rental_manager_userid}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/transactions",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-5: Associate Car Rental Manager Account to Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_admin_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_admin_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"AssociateTokenToMerchantAccount\",\n        \"P001\",\n        \"{{bc_token_id}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/transactions",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-6: Initialize Flight Traveler Account",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_admin_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_admin_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"InitializeConsumer\",\n        \"C001\",\n        \"Michael Greg\",\n          \"{{bc_airline_company_orgid}}\",\n        \"{{bc_flight_traveler_userid}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/transactions",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-7: Associate Flight Traveler Account to Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_admin_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_admin_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"AssociateTokenToConsumerAccount\",\n        \"C001\",\n        \"{{bc_token_id}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/transactions",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-8: Add Minter Role to Airline Manager",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_admin_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_admin_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"AddRole\",\n        \"{{bc_token_id}}\",\n        \"minter\",\n        \"{{bc_airline_company_orgid}}\",\n        \"{{bc_airline_manager_userid}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/transactions",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-9: List Merchants",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_admin_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_admin_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"GetMerchantDetailsByRange\",\n        \"\",\n        \"\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/chaincode-queries",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"chaincode-queries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-10: List Flight Traveler",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_admin_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_admin_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"GetConsumerLoyaltyByRange\",\n        \"\",\n        \"\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/chaincode-queries",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"chaincode-queries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-11: Issue Tokens by Airline Manager",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_airline_manager_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_airline_manager_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"IssueTokens\",\n        \"{{bc_token_id}}\",\n        \"{{bc_issue_token_quantity}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/transactions",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-12: Reward Tokens by Airline Manager",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_airline_manager_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_airline_manager_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"RewardLoyaltyTokens\",\n        \"{{bc_token_id}}\",\n        \"M001\",\n        \"C001\",\n        \"{{bc_reward_token_quantity}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/transactions",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-13: Account Transaction History by Airline Manager",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_airline_manager_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_airline_manager_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"GetAccountTransactionHistory\",\n        \"{{bc_token_id}}\",\n        \"{{bc_airline_company_orgid}}\",\n        \"{{bc_airline_manager_userid}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/chaincode-queries",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"chaincode-queries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-14: Redeem Tokens by Flight Traveler",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_flight_traveler_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_flight_traveler_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"RedeemLoyaltyTokens\",\n        \"{{bc_token_id}}\",\n        \"C001\",\n        \"P001\",\n        \"{{bc_redeem_token_quantity}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/transactions",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-15: Account Transaction History by Flight Traveler",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_flight_traveler_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_flight_traveler_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"GetAccountTransactionHistory\",\n        \"{{bc_token_id}}\",\n        \"{{bc_airline_company_orgid}}\",\n        \"{{bc_flight_traveler_userid}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_network_provider_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/chaincode-queries",
+					"host": [
+						"{{bc_network_provider_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"chaincode-queries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-16: Burn Tokens by Car Rental Manager",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_car_rental_manager_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_car_rental_manager_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"BurnTokens\",\n        \"{{bc_token_id}}\",\n        \"{{bc_burn_token_quantuty}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_participant_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/transactions",
+					"host": [
+						"{{bc_participant_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-17: Account Transaction History by Car Rental Manager",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc_car_rental_manager_password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc_car_rental_manager_userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"GetAccountTransactionHistory\",\n        \"{{bc_token_id}}\",\n        \"{{bc_car_rental_company_orgid}}\",\n        \"{{bc_car_rental_manager_userid}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc_participant_url}}/restproxy/api/v2/channels/{{bc_channel_name}}/chaincode-queries",
+					"host": [
+						"{{bc_participant_url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc_channel_name}}",
+						"chaincode-queries"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bc_network_provider_url",
+			"value": "https://utopianairline-oabcs1-iad.blockchain.ocp.oraclecloud.com:7443"
+		},
+		{
+			"key": "bc_participant_url",
+			"value": "https://carrental-oabcs1-iad.blockchain.ocp.oraclecloud.com:7443"
+		},
+		{
+			"key": "bc_channel_name",
+			"value": "loyaltyprogram"
+		},
+		{
+			"key": "bc_chaincode_name",
+			"value": "Loyalty"
+		},
+		{
+			"key": "bc_token_id",
+			"value": "T001"
+		},
+		{
+			"key": "bc_airline_company_orgid",
+			"value": "UtopianAirline"
+		},
+		{
+			"key": "bc_car_rental_company_orgid",
+			"value": "CarRental"
+		},
+		{
+			"key": "bc_admin_userid",
+			"value": ""
+		},
+		{
+			"key": "bc_admin_password",
+			"value": ""
+		},
+		{
+			"key": "bc_airline_manager_userid",
+			"value": ""
+		},
+		{
+			"key": "bc_airline_manager_password",
+			"value": ""
+		},
+		{
+			"key": "bc_flight_traveler_userid",
+			"value": ""
+		},
+		{
+			"key": "bc_flight_traveler_password",
+			"value": ""
+		},
+		{
+			"key": "bc_car_rental_manager_userid",
+			"value": ""
+		},
+		{
+			"key": "bc_car_rental_manager_password",
+			"value": ""
+		},
+		{
+			"key": "bc_issue_token_quantity",
+			"value": "500"
+		},
+		{
+			"key": "bc_reward_token_quantity",
+			"value": "500"
+		},
+		{
+			"key": "bc_redeem_token_quantity",
+			"value": "250.67"
+		},
+		{
+			"key": "bc_burn_token_quantuty",
+			"value": "15.25"
+		},
+		{
+			"key": "bc_timeout",
+			"value": "60000"
+		},
+		{
+			"value": ""
+		}
+	]
+}

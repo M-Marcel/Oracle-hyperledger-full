@@ -1,0 +1,12 @@
+.DS_Store
+go.sum
+reports/
+*.zip
+obcs/
+vendor/
+obp/
+.sync_temp/
+.sync_repo/
+.sync_backup/
+lib/
+.cc-lib.json

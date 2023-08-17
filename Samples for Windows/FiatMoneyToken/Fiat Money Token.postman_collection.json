@@ -1,0 +1,689 @@
+{
+	"info": {
+		"_postman_id": "4cc9106c-c1a8-4f7f-a229-367584a5446c",
+		"name": "Fiat Money Token",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Step-1 : Initialize Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-admin-user-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-admin-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"InitializeFiatMoneyTOKToken\",\n        \"{\\\"Token_id\\\":\\\"{{bc-token-id}}\\\", \\\"Token_desc\\\":\\\"Fractional Fungible Token\\\", \\\"Currency_name\\\":\\\"USD\\\", \\\"Token_to_currency_ratio\\\":1}\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/transactions",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-2 : Create Account for Token User1",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-admin-user-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-admin-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"CreateAccount\",\n        \"{{bc-organization-id}}\",\n        \"{{bc-user-id-1}}\",\n        \"fungible\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/transactions",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-3 : Associate Account to Token for Token User1",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-admin-user-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-admin-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"AssociateTokenToAccount\",\n        \"oaccount~928b0923af9a3840ba01b60f769ea57aab2787d2eef7a637eeb8a0fbbe6fc186\", \n        \"{{bc-token-id}}\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/transactions",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-4 : Create Account for Token User2",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-admin-user-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-admin-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"CreateAccount\",\n        \"{{bc-organization-id}}\",\n        \"{{bc-user-id-2}}\",\n        \"fungible\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/transactions",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-5 : Associate Account to Token for Token User2",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-admin-user-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-admin-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"AssociateTokenToAccount\",\n        \"oaccount~ff19e39dcd5f9987ec006e4640c43757955caeece8925d5fe897ca23b2a5de9c\", \n        \"{{bc-token-id}}\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/transactions",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-6 : Add Minter Role",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-admin-user-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-admin-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"AddRole\",\n        \"{{bc-token-id}}\",\n        \"minter\",\n        \"{{bc-organization-id}}\",\n        \"{{bc-user-id-1}}\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/transactions",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-7 : Issue Tokens",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-user-id-1-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-user-id-1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"IssueTokens\",\n        \"{{bc-token-id}}\",\n        \"{{bc-mint-quantity}}\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/transactions",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-8 : Transfer Tokens",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-user-id-1-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-user-id-1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"TransferTokens\",\n        \"{{bc-token-id}}\",\n        \"{{bc-organization-id}}\",\n        \"{{bc-user-id-2}}\",\n        \"{{bc-transfer-quantity}}\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/transactions",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-9 : Get Account Balance for Token User1",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-user-id-1-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-user-id-1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"GetAccountBalance\",\n        \"{{bc-token-id}}\",\n        \"{{bc-organization-id}}\",\n        \"{{bc-user-id-1}}\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/chaincode-queries",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"chaincode-queries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-10 : Get Account Transaction History for Token User1",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-user-id-1-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-user-id-1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"GetAccountTransactionHistory\",\n        \"{{bc-token-id}}\",\n        \"{{bc-organization-id}}\",\n        \"{{bc-user-id-1}}\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/chaincode-queries",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"chaincode-queries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-11 : Burn Tokens",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-user-id-2-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-user-id-2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"BurnTokens\",\n        \"{{bc-token-id}}\",\n        \"{{bc-burn-quantity}}\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/transactions",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-12: Get Account Balance for Token User2",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-user-id-2-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-user-id-2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"GetAccountBalance\",\n        \"{{bc-token-id}}\",\n        \"{{bc-organization-id}}\",\n        \"{{bc-user-id-2}}\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/chaincode-queries",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"chaincode-queries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step-13: Get Account Transaction History for Token User2",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bc-user-id-2-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bc-user-id-2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chaincode\": \"{{bc-chaincode-name}}\",\n    \"args\": [\n        \"GetAccountTransactionHistory\",\n        \"{{bc-token-id}}\",\n        \"{{bc-organization-id}}\",\n        \"{{bc-user-id-2}}\"\n    ],\n    \"timeout\": {{bc-timeout}},\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bc-url}}/restproxy/api/v2/channels/{{bc-channel}}/chaincode-queries",
+					"host": [
+						"{{bc-url}}"
+					],
+					"path": [
+						"restproxy",
+						"api",
+						"v2",
+						"channels",
+						"{{bc-channel}}",
+						"chaincode-queries"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bc-url",
+			"value": "https://utopianairlines-oabcs1-iad.blockchain.ocp.oraclecloud.com:7443"
+		},
+		{
+			"key": "bc-channel",
+			"value": "default"
+		},
+		{
+			"key": "bc-chaincode-name",
+			"value": "FiatMoneyToken"
+		},
+		{
+			"key": "bc-token-id",
+			"value": "T1"
+		},
+		{
+			"key": "bc-mint-quantity",
+			"value": "500"
+		},
+		{
+			"key": "bc-transfer-quantity",
+			"value": "175.25"
+		},
+		{
+			"key": "bc-burn-quantity",
+			"value": "50"
+		},
+		{
+			"key": "bc-organization-id",
+			"value": "UtopianAirlines"
+		},
+		{
+			"key": "bc-admin-user",
+			"value": "airlinemanager"
+		},
+		{
+			"key": "bc-admin-user-password",
+			"value": ""
+		},
+		{
+			"key": "bc-user-id-1",
+			"value": "airlinemanager"
+		},
+		{
+			"key": "bc-user-id-1-password",
+			"value": ""
+		},
+		{
+			"key": "bc-user-id-2",
+			"value": "flighttraveler"
+		},
+		{
+			"key": "bc-user-id-2-password",
+			"value": ""
+		},
+		{
+			"key": "bc-timeout",
+			"value": "60000"
+		}
+	]
+}

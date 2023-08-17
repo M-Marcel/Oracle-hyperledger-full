@@ -1,0 +1,89 @@
+#
+# Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+#
+assets:
+    - name: car              # Information about the car
+      properties:
+          - name: vin         # Vehicle identification number
+            type: string
+            mandatory: true
+            id: true
+            validate: min(17),max(17)   # Always 17 characters - additional validation possible
+          - name: make        # Manufacturer, limited to one of: Cheverolet,Ford,General Motors,Toyota,Hyundai,Tesla,Tata,Fiat,Volkswagen,Peugeot
+            type: string
+            validate: /^\s*(cheverolet|ford|general\smotors|toyota|hyundai|tesla|tata|fiat|volkswagen|peugeot)\s*$/i
+          - name: model       # Model name
+            type: string
+          - name: year        # Model year
+            type: number
+            mandatory: true
+            validate: min(1910),max(2020)
+          - name: color       # Color - no validation as color names are innumerable
+            type: string
+            mandatory: true
+          - name: ownerId     # Id of the current owner
+            type: string
+# We can get the email from the owner's information
+#          - name: email       # Owners's email address
+#            type: string
+#            validate: email() # Validate it as a valid email address
+          - name: price       # Current price of the vehicle
+            type: number
+            validate: positive()
+          - name: lastSold    # Date of the last sale of this car
+            type: date
+      methods:
+          crud: [create, getById, update, delete]
+          others: [getHistoryById, getByRange]
+    - name: dealer            # Informmation about the dealer
+      properties:
+          - name: dealerId    # Unique ID for each dealer
+            type: string
+            mandatory: true
+            id: true
+          - name: name        # Name of the dealer
+            type: string
+            mandatory: true
+          - name: website     
+            type: string
+            mandatory: false
+            validate: url()
+          - name: phone       # Phone number - validate as (ddd)-ddd-dddd where dashes could also be periods or spaces
+            type: string
+            mandatory: true
+            validate: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+          - name: email       # Dealer's email address
+            type: string
+            validate: email() # Validate it as a valid email address
+          - name: inventory   # The list of car VINs owned by this dealer
+            type: string[]
+            mandatory: false
+      methods:
+        crud: [create, getById, update, delete]
+        others: [getHistoryById, getByRange]
+    - name: owner            # Informmation about the owner
+      properties:
+          - name: ownerId    # Unique ID for each owner
+            type: string
+            mandatory: true
+            id: true
+          - name: name        # Name of the owner
+            type: string
+            mandatory: true
+          - name: phone       # Phone number - validate as (ddd)-ddd-dddd where dashes could also be periods or spaces
+            type: string
+            mandatory: true
+            validate: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+          - name: email       # Owner's email address
+            type: string
+            validate: email() # Validate it as a valid email address
+          - name: cars        # The list of car VINs owned by this owner
+            type: string[]
+            mandatory: false
+      methods:
+        crud: [create, getById, update, delete]
+        others: [getHistoryById, getByRange]
+customMethods:
+    - executeQuery
+    - "buyCar(vin: string, buyerId: string, sellerId: string, price: number, date: Date)"
+    - "addCar(vin: string, dealerId: string, price: number, date: Date)"   # Adds a new car to the system

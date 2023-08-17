@@ -1,0 +1,12 @@
+{
+  "name": "NFTArtCollectionMarketplaceERC721Ts",
+  "description": "Chaincode package for NFTArtCollectionMarketplaceERC721Ts",
+  "chaincodeName": "NFTArtCollectionMarketplaceERC721Ts",
+  "chaincodeType": "node",
+  "configFileLocation": "< Update_NFTArtCollectionMarketPlaceERC721Ts_File_Path_Here >",
+  "appBuilderVersion": "22.4.3",
+  "nodeVersion": "v12.22.1",
+  "tokenUser": "admin",
+  "tokenAssetsInfo": ["nft_erc721+_c1"],
+  "enableMvccOptimization": true
+}

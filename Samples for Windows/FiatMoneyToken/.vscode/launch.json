@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch debugger for FiatMoneyToken chaincode",
+            "type": "go",
+            "request": "launch",
+            "showGlobalVariables": true,
+            "program": "${workspaceFolder}",
+            "args": [
+                "--peer.address=localhost:7052"
+            ],
+            "preLaunchTask": "build",
+            "env": {
+                "CORE_CHAINCODE_ID_NAME": "FiatMoneyToken:v0",
+                "CORE_PEER_TLS_ENABLED": "false",
+                "CORE_CHAINCODE_LOGGING_SHIM": "DEBUG",
+                "CORE_LOGGING_LEVEL": "DEBUG"
+            }
+        }
+    ],
+    "compounds": []
+}

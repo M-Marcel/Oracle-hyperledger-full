@@ -1,0 +1,29 @@
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "debug",
+            "command": "ochain debug -p '${workspaceFolder}' -v v0",
+            "windows": {
+                "command": "ochain debug -v v0"
+            },
+            "type": "shell"
+        },
+        {
+            "label": "build",
+            "dependsOn": [
+                "debug"
+            ],
+            "command": "echo ${input:switch}",
+            "type": "shell"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "switch",
+            "type": "command",
+            "command": "workbench.debug.action.toggleRepl"
+        }
+    ]
+}

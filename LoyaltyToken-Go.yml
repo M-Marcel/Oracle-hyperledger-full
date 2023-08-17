@@ -1,0 +1,130 @@
+#
+# Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+#
+assets:
+
+# Token asset to manage the complete lifecycle of loyalty token
+
+    - name: LoyalTOK # Asset name
+      type: token # Asset type
+
+      anatomy:
+          type: fungible # Token type 
+          unit: fractional # Token unit
+
+      behavior: # Token behaviors
+          - divisible:
+                decimal: 2 
+          - mintable: 
+                max_mint_quantity: 10000 
+          - transferable 
+          - burnable 
+          - roles:
+                minter_role_name: minter 
+
+      properties: # Custom asset attributes for token
+
+          - name: Currency_Name 
+            type: string
+            mandatory: true
+
+          - name: Token_To_Currency_Ratio 
+            type: float
+            mandatory: true 
+                       
+          - name: Effective_From_Date 
+            type: date
+            mandatory: true
+
+# Generic asset to maintain the consumer account details
+
+    - name: ConsumerLoyalty # Asset name
+
+      properties: # Asset attributes 
+
+          - name: Consumer_Id  
+            type: string
+            mandatory: true
+            id: true
+
+          - name: Consumer_Name  
+            type: string
+            mandatory: true
+
+          - name: Consumer_Org_Id 
+            type: string
+            mandatory: true
+
+          - name: Consumer_User_Id  
+            type: string
+            mandatory: true            
+
+          - name: Consumer_Account_Id 
+            type: string
+            mandatory: true            
+
+          - name: Accrued_Token_Quantity  
+            type: float
+            
+          - name: Redeemed_Token_Quantity 
+            type: float            
+
+          - name: Consumer_Status 
+            type: string
+            mandatory: true
+            validate: /^\s*(active|in-active)\s*$/ # Validate the value of consumer status attribute
+
+
+      methods:
+          crud: [create, update, getById, delete]
+          others: [getHistoryById, getByRange]         
+
+
+# Generic asset to maintain the merchant account details
+
+    - name: MerchantDetails # Asset name
+
+      properties: # Asset attributes
+
+          - name: Merchant_Id  
+            type: string
+            mandatory: true
+            id: true
+
+          - name: Merchant_Name 
+            type: string
+            mandatory: true
+
+          - name: Merchant_Org_Id 
+            type: string
+            mandatory: true
+
+          - name: Merchant_User_Id 
+            type: string
+            mandatory: true            
+
+          - name: Merchant_Account_Id 
+            type: string
+            mandatory: true   
+
+          - name: Merchant_Type  
+            type: string
+            validate: /^\s*(issuer|redeemer|both)\s*$/   # Validate the value of merchant type attribute                                     
+
+          - name: Merchant_Status  
+            type: string
+            validate: /^\s*(active|in-active)\s*$/  # Validate the value of merchant status attribute
+      
+      methods:
+          crud: [create, update, getById, delete]
+          others: [getHistoryById, getByRange]
+
+
+customMethods:
+    - executeQuery
+    - "InitializeMerchant(LoyaltyTokenID string, MerchantID string, MerchantName string, MerchantOrgID string, MerchantUserID string)"  # Initialize the network provider and partner details  
+    - "InitializeConsumer(LoyaltyTokenID string, ConsumerID string, ConsumerName string, ConsumerOrgID string, ConsumerUserID string)"  # Initialize the consumer details    
+    - "AssociateTokenToMerchantAccount(MerchantID string, LoyaltyTokenID string)" # Associate merchant account to token 
+    - "AssociateTokenToConsumerAccount(MerchantID string, LoyaltyTokenID string )" # Associate consumer account to token 
+    - "RewardLoyaltyTokens(LoyaltyTokenID string, FromMerchantID string, ToConsumerID string, RewardTokenQuantity float64)" # Tokens rewarded from the token issuer to a consumer. Token issuer must trigger the function from their respective user logins 
+    - "RedeemLoyaltyTokens(LoyaltyTokenID string, FromConsumerID string, ToMerchantID string, RedeemTokenQuantity float64)" # Tokens redeemed by the consumer with partners. Consumers must trigger the function from their respective user logins  

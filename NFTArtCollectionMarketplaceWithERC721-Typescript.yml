@@ -1,0 +1,53 @@
+#
+# Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+#
+
+# Token asset to manage the complete lifecycle of a non-fungible token for art collection. 
+# This specification file will generate non-fungible token marketplace for art collection.
+
+assets:
+    - name: ArtCollection #Asset name
+      type: token #Asset type
+      symbol: ART         # Token symbol
+      standard: erc721+   # Token standard
+      
+      anatomy:
+          type: nonfungible # Token type
+          unit: whole  #Token unit
+      
+      behavior:
+        - indivisible                
+        - singleton                   
+        - mintable:                   
+            max_mint_quantity: 20000
+        - transferable                
+        - burnable
+        - roles:
+            minter_role_name: minter
+      
+      properties:  # Custom asset attributes for non-fungible token 
+          
+          - name: price # Custom asset attribute to set the price of a non-fungible token in the marketplace
+            type: number
+          
+          - name: on_sale_flag # Custom asset attribute maintains non-fungible token selling status in the marketplace
+            type: boolean
+      
+      metadata: # To maintain the metadata on-chain, this tag will be used. The user creating the non-fungible token for the first time, can only update the metadata attribute values.
+          
+          - name: painting_name
+            type: string
+          
+          - name: description
+            type: string
+          
+          - name: image
+            type: string
+          
+          - name: painter_name
+            type: string
+
+customMethods:
+    - executeQuery
+    - "sell(token_id: string, selling_price: number)" # Post the non-fungible token for selling in the marketplace
+    - "buy(from_org_id: string, from_user_id: string, to_org_id: string, to_user_id: string, nonfungible_token_id: string, amount_paid: number)"  # Buy the non-fungible token after paying the amount using any payment gateways 

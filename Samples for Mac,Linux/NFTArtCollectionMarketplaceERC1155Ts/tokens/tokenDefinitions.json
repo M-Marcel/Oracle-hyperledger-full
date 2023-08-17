@@ -1,0 +1,43 @@
+{
+  "oaccount~*": [
+    {
+      "jsonPath": [
+        "balance"
+      ],
+      "precision": 2
+    },
+    {
+      "jsonPath": [
+        "noOfNfts"
+      ]
+    }
+  ],
+  "oerc1155~tokenclass~artcollection": [
+    {
+      "jsonPath": [
+        "totalMintedAmount"
+      ],
+      "max": 20000
+    },
+    {
+      "jsonPath": [
+        "totalSupply"
+      ]
+    }
+  ],
+  "ometadata~loyalty~*": [
+    {
+      "jsonPath": [
+        "totalSupply"
+      ],
+      "precision": 2
+    },
+    {
+      "jsonPath": [
+        "totalMintedAmount"
+      ],
+      "max": 10000,
+      "precision": 2
+    }
+  ]
+}

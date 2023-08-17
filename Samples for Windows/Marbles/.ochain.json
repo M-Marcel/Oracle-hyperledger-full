@@ -1,0 +1,12 @@
+{
+  "name": "Marbles",
+  "description": "Chaincode package for Marbles",
+  "chaincodeName": "Marbles",
+  "chaincodeType": "golang",
+  "configFileLocation": "< Update_Marbles_Specification_File_Path_Here >",
+  "goDomain": "example.com",
+  "appBuilderVersion": "22.4.3",
+  "tokenUser": "admin",
+  "tokenAssetsInfo": [],
+  "enableMvccOptimization": true
+}

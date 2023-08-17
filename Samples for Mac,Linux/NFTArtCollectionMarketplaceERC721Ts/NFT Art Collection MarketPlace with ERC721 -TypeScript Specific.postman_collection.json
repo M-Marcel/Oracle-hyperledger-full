@@ -1,0 +1,611 @@
+{
+	"info": {
+		"_postman_id": "8b0caa1c-6a3e-4330-9549-337c0c185115",
+		"name": "NFT Art Collection MarketPlace with ERC721 -TypeScript Specific",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "NFT Platform Provider",
+			"item": [
+				{
+					"name": "Step-1: Create Account - for Museum Curator",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bc_nft_platform_provider_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{bc_nft_platform_provider_userid}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"createAccount\",\n        \"{{bc_museum_orgid}}\",\n        \"{{bc_museum_userid}}\",\n        \"nonfungible\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bc_nft_platform_provider_url}}/api/v2/channels/{{bc_channel_name}}/transactions",
+							"host": [
+								"{{bc_nft_platform_provider_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"channels",
+								"{{bc_channel_name}}",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step-2: Create Account - for Consumer",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bc_nft_platform_provider_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{bc_nft_platform_provider_userid}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"createAccount\",\n        \"{{bc_nft_platform_provider_orgid}}\",\n        \"{{bc_nft_consumer_userid}}\",\n        \"nonfungible\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bc_nft_platform_provider_url}}/api/v2/channels/{{bc_channel_name}}/transactions",
+							"host": [
+								"{{bc_nft_platform_provider_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"channels",
+								"{{bc_channel_name}}",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step-3: Add Role - NFT Minter to Musuem Curator",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{bc_nft_platform_provider_userid}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{bc_nft_platform_provider_password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"addRole\",\n        \"minter\",\n        \"{{bc_museum_orgid}}\",\n        \"{{bc_museum_userid}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bc_nft_platform_provider_url}}/api/v2/channels/{{bc_channel_name}}/transactions",
+							"host": [
+								"{{bc_nft_platform_provider_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"channels",
+								"{{bc_channel_name}}",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Museum Curator",
+			"item": [
+				{
+					"name": "Step-4: Create / Mint NFT",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bc_museum_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{bc_museum_userid}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"createArtCollectionToken\",\n        \"{\\\"tokenId\\\":\\\"{{bc_nft_token_id}}\\\",\\\"tokenUri\\\":\\\"https://ipfs.io/ipfs/QmV68aiT7xw2WX8pmDbeTWpGP2or35NUFan9RagymsLpgV?filename=ArtCollection_N1.json\\\",\\\"metadata\\\":{\\\"painting_name\\\":\\\"Oracle - Red Bull Partnership\\\",\\\"description\\\": \\\"Oracle - Red Bull Partnership\\\",\\\"image\\\":\\\"https://ipfs.io/ipfs/QmVap6Gkh3Cp9DiLLWvkvJHpuXpFmYB2GzU1caM57gNcAa?filename=Oracle_RedBull_N1.jpeg\\\",\\\"painter_name\\\":\\\"Alex\\\"},\\\"price\\\":0,\\\"on_sale_flag\\\":false}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bc_participant_museum_url}}/api/v2/channels/{{bc_channel_name}}/transactions",
+							"host": [
+								"{{bc_participant_museum_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"channels",
+								"{{bc_channel_name}}",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step-5: Sell NFT - Post NFT for Sale in Marketplace",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bc_museum_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{bc_museum_userid}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"sell\",\n        \"{{bc_nft_token_id}}\",\n        \"250\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bc_participant_museum_url}}/api/v2/channels/{{bc_channel_name}}/transactions",
+							"host": [
+								"{{bc_participant_museum_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"channels",
+								"{{bc_channel_name}}",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step-6: Get Token History",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bc_museum_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{bc_museum_userid}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"getTokenHistory\",\n        \"{{bc_nft_token_id}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bc_participant_museum_url}}/api/v2/channels/{{bc_channel_name}}/chaincode-queries",
+							"host": [
+								"{{bc_participant_museum_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"channels",
+								"{{bc_channel_name}}",
+								"chaincode-queries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step-7: Get Token Balance",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bc_museum_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{bc_museum_userid}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"balanceOf\",\n        \"{{bc_museum_orgid}}\",\n        \"{{bc_museum_userid}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bc_participant_museum_url}}/api/v2/channels/{{bc_channel_name}}/chaincode-queries",
+							"host": [
+								"{{bc_participant_museum_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"channels",
+								"{{bc_channel_name}}",
+								"chaincode-queries"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consumer",
+			"item": [
+				{
+					"name": "Step-8: Buy NFT",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bc_nft_consumer_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{bc_nft_consumer_userid}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"buy\",\n        \"{{bc_museum_orgid}}\",\n        \"{{bc_museum_userid}}\",\n        \"{{bc_nft_platform_provider_orgid}}\",\n        \"{{bc_nft_consumer_userid}}\",\n        \"{{bc_nft_token_id}}\",\n        \"250\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bc_nft_platform_provider_url}}/api/v2/channels/{{bc_channel_name}}/transactions",
+							"host": [
+								"{{bc_nft_platform_provider_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"channels",
+								"{{bc_channel_name}}",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step-9: Sell NFT - Post NFT for Sale in Marketplace",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bc_nft_consumer_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{bc_nft_consumer_userid}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"sell\",\n        \"{{bc_nft_token_id}}\",\n        \"500\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bc_nft_platform_provider_url}}/api/v2/channels/{{bc_channel_name}}/transactions",
+							"host": [
+								"{{bc_nft_platform_provider_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"channels",
+								"{{bc_channel_name}}",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step-10: Get Token History",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bc_nft_consumer_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{bc_nft_consumer_userid}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"getTokenHistory\",\n        \"{{bc_nft_token_id}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bc_nft_platform_provider_url}}/api/v2/channels/{{bc_channel_name}}/chaincode-queries",
+							"host": [
+								"{{bc_nft_platform_provider_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"channels",
+								"{{bc_channel_name}}",
+								"chaincode-queries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step-11: Get Token Balance",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bc_nft_consumer_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{bc_nft_consumer_userid}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"chaincode\": \"{{bc_chaincode_name}}\",\n    \"args\": [\n        \"balanceOf\",\n        \"{{bc_nft_platform_provider_orgid}}\",\n        \"{{bc_nft_consumer_userid}}\"\n    ],\n    \"timeout\": {{bc_timeout}},\n    \"sync\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bc_nft_platform_provider_url}}/api/v2/channels/{{bc_channel_name}}/chaincode-queries",
+							"host": [
+								"{{bc_nft_platform_provider_url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"channels",
+								"{{bc_channel_name}}",
+								"chaincode-queries"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bc_nft_platform_provider_url",
+			"value": "https://founder-oabcs1-iad.blockchain.ocp.oraclecloud.com:7443/restproxy",
+			"type": "string"
+		},
+		{
+			"key": "bc_participant_museum_url",
+			"value": "https://participant-oabcs1-iad.blockchain.ocp.oraclecloud.com:7443/restproxy",
+			"type": "string"
+		},
+		{
+			"key": "bc_channel_name",
+			"value": "marketplace",
+			"type": "string"
+		},
+		{
+			"key": "bc_chaincode_name",
+			"value": "NFT1",
+			"type": "string"
+		},
+		{
+			"key": "bc_nft_token_id",
+			"value": "N1",
+			"type": "string"
+		},
+		{
+			"key": "bc_nft_platform_provider_orgid",
+			"value": "nftoperator",
+			"type": "string"
+		},
+		{
+			"key": "bc_nft_platform_provider_userid",
+			"value": "nftadmin",
+			"type": "string"
+		},
+		{
+			"key": "bc_nft_platform_provider_password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "bc_museum_orgid",
+			"value": "utopianmuseum",
+			"type": "string"
+		},
+		{
+			"key": "bc_museum_userid",
+			"value": "utopian_curator",
+			"type": "string"
+		},
+		{
+			"key": "bc_museum_password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "bc_nft_consumer_userid",
+			"value": "michael",
+			"type": "string"
+		},
+		{
+			"key": "bc_nft_consumer_password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "bc_timeout",
+			"value": "60000",
+			"type": "string"
+		}
+	]
+}

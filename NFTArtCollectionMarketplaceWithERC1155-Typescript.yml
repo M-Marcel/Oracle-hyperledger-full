@@ -1,0 +1,77 @@
+#
+# Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+#
+
+# Token asset to manage the complete lifecycle of a non-fungible token for art collection. 
+# This specification file will generate non-fungible token marketplace for art collection.
+
+assets:
+    - name: ArtCollection #Asset name
+      type: token #Asset type
+      standard: erc1155+   # Token standard
+      
+      anatomy:
+          type: nonfungible # Token type
+          unit: whole  #Token unit
+      
+      behavior:
+        - indivisible                
+        - singleton                   
+        - mintable:                   
+            max_mint_quantity: 20000
+        - transferable                
+        - burnable
+        - roles:
+            minter_role_name: minter
+      
+      properties:  # Custom asset attributes for non-fungible token 
+          
+          - name: price # Custom asset attribute to set the price of a non-fungible token in the marketplace
+            type: number
+          
+          - name: on_sale_flag # Custom asset attribute maintains non-fungible token selling status in the marketplace
+            type: boolean
+      
+      metadata: # To maintain the metadata on-chain, this tag will be used. The user creating the non-fungible token for the first time, can only update the metadata attribute values.
+          
+          - name: painting_name
+            type: string
+          
+          - name: description
+            type: string
+          
+          - name: image
+            type: string
+          
+          - name: painter_name
+            type: string
+
+    - name: Loyalty # Asset name
+      type: token  # Asset type
+      standard: erc1155+   # Token standard
+
+      anatomy: 
+          type: fungible # Token type
+          unit: fractional # Token unit
+
+      behavior: # Token behaviors
+          - divisible: 
+                decimal: 2  
+          - mintable: 
+                max_mint_quantity: 10000 
+          - transferable
+          - burnable 
+          - roles: 
+                minter_role_name: minter 
+
+      properties:
+          - name: currency_name # Custom attribute to represent the token in certain currency. This attribute is helpful for exchanging the tokens with fiat currency.
+            type: string
+
+          - name: token_to_currency_ratio # Custom attribute to specify the token to currency ratio. This attribute is helpful for exchanging the tokens with fiat currency.
+            type: number
+
+customMethods:
+    - executeQuery
+    - "sell(token_id: string, selling_price: number)" # Post the non-fungible token for selling in the marketplace
+    - "buyWithEthCoin(from_org_id: string, from_user_id: string, to_org_id: string, to_user_id: string, nft_id: string[], loyalty_id: string[], eth_qty: number[], loyalty_reward_quantity: number[])"  # Buy the non-fungible token after paying the amount using Eth Coin and receive loyalty points in return

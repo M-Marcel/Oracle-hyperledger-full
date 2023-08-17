@@ -1,0 +1,12 @@
+{
+  "name": "FabCar",
+  "description": "Chaincode package for FabCar",
+  "chaincodeName": "FabCar",
+  "chaincodeType": "node",
+  "configFileLocation": "< Update_FabCar_Specification_File_Path_Here >",
+  "appBuilderVersion": "22.4.3",
+  "nodeVersion": "v12.22.1",
+  "tokenUser": "admin",
+  "tokenAssetsInfo": [],
+  "enableMvccOptimization": true
+}

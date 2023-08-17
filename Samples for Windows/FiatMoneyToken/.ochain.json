@@ -1,0 +1,14 @@
+{
+  "name": "FiatMoneyToken",
+  "description": "Chaincode package for FiatMoneyToken",
+  "chaincodeName": "FiatMoneyToken",
+  "chaincodeType": "golang",
+  "configFileLocation": "< Update_FiatMoneyToken_Specification_File_Path_Here >",
+  "goDomain": "example.com",
+  "appBuilderVersion": "22.4.3",
+  "tokenUser": "admin",
+  "tokenAssetsInfo": [
+    "ft_ttf+_c1"
+  ],
+  "enableMvccOptimization": true
+}

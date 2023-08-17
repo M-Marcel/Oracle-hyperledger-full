@@ -1,0 +1,43 @@
+#
+# Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+#
+assets:
+    - name: Marble
+      properties:
+          - name: MarbleID
+            type: string
+            mandatory: true
+            id: true
+          - name: Color #Colors can be red, blue or green
+            type: string
+            mandatory: true
+            validate: /^\s*(red|blue|green)\s*$/
+          - name: Size
+            type: string 
+            validate: /^\s*(10|20|30)\s*$/ #Size can be 10, 20 or 30
+          - name: OwnerID #Owner Player IDs 
+            type: string
+            mandatory: true
+      methods:
+          crud: [create, getById, update]
+          others: [getHistoryById, getByRange]
+    - name: Player
+      properties:
+          - name: PlayerID
+            type: string
+            mandatory: true
+            id: true
+          - name: Name
+            type: string  
+          - name: Location
+            type: string  
+          - name: Phone_Number
+            type: string
+            validate: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/  # Phone number - validate as (ddd)-ddd-dddd where dashes could also be periods or spaces
+      methods:
+          crud: [create, getById, update]
+          others: [getHistoryById, getByRange]
+customMethods:
+    - executeQuery
+    - "SendMarbleToPlayer(MarbleID string, PlayerID string)" # Customized method for ownership transfer
+ 

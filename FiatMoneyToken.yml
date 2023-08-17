@@ -1,0 +1,31 @@
+#
+# Copyright (c) 2022, Oracle and/or its affiliates. All rights reserved.
+#
+
+assets:
+    - name: FiatMoneyTOK # Asset name
+      type: token  # Asset type
+
+      anatomy: 
+          type: fungible # Token type
+          unit: fractional # Token unit
+
+      behavior: # Token behaviors
+          - divisible: 
+                decimal: 2  
+          - mintable: 
+                max_mint_quantity: 1000 
+          - transferable
+          - burnable 
+          - roles: 
+                minter_role_name: minter 
+
+      properties:
+          - name: currency_name # Custom attribute to represent the token in certain currency. This attribute is helpful for exchanging the tokens with fiat currency.
+            type: string
+
+          - name: token_to_currency_ratio # Custom attribute to specify the token to currency ratio. This attribute is helpful for exchanging the tokens with fiat currency.
+            type: number
+
+customMethods:
+    - executeQuery

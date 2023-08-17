@@ -1,0 +1,12 @@
+{
+  "name": "NFTArtCollectionMarketplaceERC1155Ts",
+  "description": "Chaincode package for NFTArtCollectionMarketplaceERC1155Ts",
+  "chaincodeName": "NFTArtCollectionMarketplaceERC1155Ts",
+  "chaincodeType": "node",
+  "configFileLocation": "< Update_NFTArtCollectionMarketPlaceERC1155Ts_File_Path_Here >",
+  "appBuilderVersion": "22.4.3",
+  "nodeVersion": "v12.22.1",
+  "tokenUser": "admin",
+  "tokenAssetsInfo": ["nft_erc1155+_c1","ft_erc1155+_c1"],
+  "enableMvccOptimization": true
+}

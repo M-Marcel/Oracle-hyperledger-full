@@ -1,0 +1,22 @@
+{
+  "oaccount~*": [
+    {
+      "jsonPath": [
+        "noOfNfts"
+      ]
+    }
+  ],
+  "oerc721~tokenclass": [
+    {
+      "jsonPath": [
+        "totalSupply"
+      ],
+      "max": 20000
+    },
+    {
+      "jsonPath": [
+        "totalMintedAmount"
+      ]
+    }
+  ]
+}
